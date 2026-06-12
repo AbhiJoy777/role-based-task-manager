@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+  const role = localStorage.getItem("role");
+
   return (
     <nav
       style={{
@@ -14,11 +16,15 @@ export default function Navbar() {
 
       <Link to="/dashboard">Dashboard</Link>
 
-      <Link to="/admin/users">Users</Link>
+      {role === "Admin" && (
+        <>
+          <Link to="/admin/users">Users</Link>
 
-      <Link to="/admin/tasks">Tasks</Link>
+          <Link to="/admin/tasks">Tasks</Link>
 
-      <Link to="/admin/logs">Logs</Link>
+          <Link to="/admin/logs">Logs</Link>
+        </>
+      )}
     </nav>
   );
 }
