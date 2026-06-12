@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -14,6 +16,7 @@ export default function Login() {
         "http://localhost:5000/api/auth/login",
         {
           email,
+          password,
         }
       );
 
@@ -40,6 +43,16 @@ export default function Login() {
           placeholder="Enter Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <br />
+        <br />
+
+        <input
+          type="password"
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
         <br />

@@ -22,7 +22,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -32,18 +32,25 @@ const login = async (req, res) => {
       });
     }
 
+    if (user.password !== password) {
+      return res.status(401).json({
+        message: "Invalid credentials",
+      });
+    }
+
     const token = jwt.sign(
       {
         id: user._id,
         role: user.role,
       },
-      process.env.JWT_SECRET || "secret123",
+      process.env.JWT_SECRET,
       {
         expiresIn: "1d",
       }
     );
 
     res.json({
+      message: "Login Successful",
       token,
       user,
     });
